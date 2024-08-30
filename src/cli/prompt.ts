@@ -124,3 +124,16 @@ export async function promptConcurrencyLimit() {
 
   return answers.concurrencylimit;
 }
+
+export async function promptCustomPrompt() {
+  const answers = await inquirer.prompt([
+    {
+      type: 'string',
+      name: 'customprompt',
+      message: messages.cli.custom_prompt,
+      default: '',
+    },
+  ]);
+
+  return answers.customprompt;
+}

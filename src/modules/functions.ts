@@ -7,6 +7,7 @@ import { warn } from '../utils/console';
 import translate2 from '@iamtraction/google-translate';
 import OpenAI from 'openai';
 import { GTPTranslateLanguages } from './languages';
+import { TranslationConfig } from './modules';
 
 export async function translateWithLibre(
   str: string,
@@ -181,36 +182,45 @@ export async function translateWithGoogle2(
 export async function translateWithGPT35Turbo(
   str: string,
   from: string,
-  to: string
+  to: string,
+  options?: TranslationConfig
 ) {
-  return translateWithGPT('gpt-3.5-turbo', str, from, to);
+  return translateWithGPT('gpt-3.5-turbo', str, from, to, options);
 }
 
-export async function translateWithGPT4(str: string, from: string, to: string) {
-  return translateWithGPT('gpt-4', str, from, to);
+export async function translateWithGPT4(
+  str: string,
+  from: string,
+  to: string,
+  options?: TranslationConfig
+) {
+  return translateWithGPT('gpt-4', str, from, to, options);
 }
 
 export async function translateWithGPT4o(
   str: string,
   from: string,
-  to: string
+  to: string,
+  options?: TranslationConfig
 ) {
-  return translateWithGPT('gpt-4o', str, from, to);
+  return translateWithGPT('gpt-4o', str, from, to, options);
 }
 
 export async function translateWithGPT4oMini(
   str: string,
   from: string,
-  to: string
+  to: string,
+  options?: TranslationConfig
 ) {
-  return translateWithGPT('gpt-4o-mini', str, from, to);
+  return translateWithGPT('gpt-4o-mini', str, from, to, options);
 }
 
 export async function translateWithGPT(
   model: string,
   str: string,
   from: string,
-  to: string
+  to: string,
+  options?: TranslationConfig
 ) {
   type ChatCompletionRequestMessage = {
     role: 'system' | 'user' | 'assistant';
@@ -234,7 +244,8 @@ export async function translateWithGPT(
       {
         role: 'system',
         content:
-          'You are a translation assistant. Translate any text given to you into the specified language. Do not return anything else.',
+          options?.customPrompt ||
+            'You are a translation assistant. Translate any text given to you into the specified language. Do not return anything else.',
       },
       {
         role: 'user',

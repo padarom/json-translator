@@ -68,6 +68,8 @@ export const messages = {
       'optional ↵ | fallback logic, try other translation modules when fail | yes, no | default: no',
     concurrency_limit_message:
       'optional ↵ | set max concurrency limit (higher faster, but easy to get banned) | default: 3',
+    custom_prompt:
+      'optional ↵ | do you want to use a custom prompt? If so, specify here.',
 
     // fail messages
     module_not_available: `module is not available. (choices : ${translationModuleKeys})`,

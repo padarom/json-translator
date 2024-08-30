@@ -31,7 +31,8 @@ export async function plaintranslate(
     let translatedStr = await TranslationConfig.TranslationModule.translate(
       ignored_str,
       from,
-      to
+      to,
+      TranslationConfig,
     );
 
     // step: put ignored values back
@@ -73,7 +74,7 @@ export async function plaintranslate(
 
     if (stop) {
       warn(
-        `\nerror while translating "${str}" using ${clonedTranslationConfig.moduleKey}. Assigned "--" instead of exit from cli.`
+        `\nerror while translating "${str}" using ${clonedTranslationConfig.moduleKey}. Assigned "--" instead of exit from cli.\nOriginal error: ${e}`
       );
 
       global.totalTranslated = global.totalTranslated + 1;

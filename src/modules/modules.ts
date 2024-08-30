@@ -28,6 +28,7 @@ export type TranslationConfig = {
   moduleKey: string;
   TranslationModule: TranslationModule;
   concurrencyLimit: number;
+  customPrompt?: string;
   fallback: boolean;
 };
 

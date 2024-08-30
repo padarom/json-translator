@@ -27,6 +27,7 @@ import {
   promptModuleKey,
   promptFallback,
   promptConcurrencyLimit,
+  promptCustomPrompt,
 } from './prompt';
 import { TranslationConfig, TranslationModule } from '../modules/modules';
 
@@ -143,6 +144,9 @@ async function translate() {
   // get concurrency limit
   const concurrencyLimitValue = await concurrencyLimit(commandOptions);
   TranslationConfig.concurrencyLimit = concurrencyLimitValue;
+
+  const customPromptValue = await customPrompt(commandOptions);
+  TranslationConfig.customPrompt = customPromptValue;
 
   // set loading
   const { load, refreshInterval } = setLoading();
@@ -288,6 +292,16 @@ async function fallback(commandOptions: OptionValues): Promise<boolean> {
   }
 
   return fallback;
+}
+
+async function customPrompt(commandOptions: OptionValues): Promise<string> {
+  let customPromptInput: string = commandOptions.customPrompt ?? undefined;
+
+  if (!customPromptInput) {
+    customPromptInput = await promptCustomPrompt();
+  }
+
+  return customPromptInput;
 }
 
 async function concurrencyLimit(commandOptions: OptionValues): Promise<number> {
